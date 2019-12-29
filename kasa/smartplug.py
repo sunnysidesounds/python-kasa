@@ -122,8 +122,14 @@ class SmartPlug(SmartDevice):
 
         :return: True if device is on, False otherwise
         """
+        is_initially_on = False
         sys_info = self.sys_info
-        return bool(sys_info["relay_state"])
+        if "relay_state" in sys_info:
+            is_initially_on = bool(sys_info["relay_state"])
+        elif "ntc_state" in sys_info:
+            is_initially_on = bool(sys_info["ntc_state"])
+        return is_initially_on
+
 
     async def turn_on(self):
         """Turn the switch on.

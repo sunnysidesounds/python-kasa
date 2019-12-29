@@ -124,6 +124,11 @@ class Discover:
                 type_ = sysinfo["type"]
             elif "mic_type" in sysinfo:
                 type_ = sysinfo["mic_type"]
+            elif "system" in sysinfo:
+                if "type" in sysinfo["system"]:
+                    type_ = sysinfo["system"]["type"]
+                else:
+                    raise SmartDeviceException("Unable to find the device type field!")
             else:
                 raise SmartDeviceException("Unable to find the device type field!")
         else:
